@@ -38,7 +38,23 @@ proxy:
     - id: rinkeby
       blockchain: rinkeby
     - id: bsc
-      blockchain: bs
+      blockchain: bsc
+    - id: rsk
+      blockchain: rsk
+    - id: optimism
+      blockchain: optimism
+    - id: moonriver
+      blockchain: moonriver
+    - id: xdai
+      blockchain: xdai
+    - id: heco
+      blockchain: heco
+    - id: matic
+      blockchain: matic
+    - id: arbitrum
+      blockchain: arbitrum
+    - id: avalanche
+      blockchain: avalanche
 
 cluster:
   defaults:
