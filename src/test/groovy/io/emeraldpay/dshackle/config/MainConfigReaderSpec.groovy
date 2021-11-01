@@ -51,7 +51,7 @@ class MainConfigReaderSpec extends Specification {
             port == 8082
             tls != null
             routes != null
-            routes.size() == 5
+            routes.size() == 13
             with(routes[0]) {
                 id == "eth"
                 blockchain == Chain.ETHEREUM
@@ -71,6 +71,38 @@ class MainConfigReaderSpec extends Specification {
             with(routes[4]) {
                 id == "rinkeby"
                 blockchain == Chain.TESTNET_RINKEBY
+            }
+            with(routes[5]) {
+                id == "bsc"
+                blockchain == Chain.BSC
+            }
+            with(routes[6]) {
+                id == "optimism"
+                blockchain == Chain.OPTIMISM
+            }
+            with(routes[7]) {
+                id == "moonriver"
+                blockchain == Chain.MOONRIVER
+            }
+            with(routes[8]) {
+                id == "avalanche"
+                blockchain == Chain.AVALANCHE
+            }
+            with(routes[9]) {
+                id == "arbitrum"
+                blockchain == Chain.ARBITRUM
+            }
+            with(routes[10]) {
+                id == "xdai"
+                blockchain == Chain.XDAI
+            }
+            with(routes[11]) {
+                id == "heco"
+                blockchain == Chain.HECO
+            }
+            with(routes[12]) {
+                id == "rsk"
+                blockchain == Chain.RSK
             }
         }
         act.upstreams != null

@@ -62,7 +62,7 @@ configurations {
 }
 
 dependencies {
-    implementation "io.emeraldpay:emerald-api:0.10.0"
+    implementation files('libs/emerald-api-simply-0.10.0.jar')
 
     implementation "io.grpc:grpc-protobuf:${grpcVersion}"
     implementation "io.grpc:grpc-stub:${grpcVersion}"
@@ -236,7 +236,7 @@ sourceSets {
 }
 
 task generateVersion()  {
-    group = 'Build'
+    group = 'Build' 
     description = 'Generate project version'
 
     doLast {

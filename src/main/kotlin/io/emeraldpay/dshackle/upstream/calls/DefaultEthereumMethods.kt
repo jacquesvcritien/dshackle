@@ -139,6 +139,30 @@ class DefaultEthereumMethods(
                     Chain.TESTNET_GOERLI == chain -> {
                         "\"5\""
                     }
+                    Chain.RSK == chain -> {
+                        "\"30\""
+                    }
+                    Chain.BSC == chain -> {
+                        "\"56\""
+                    }
+                    Chain.XDAI == chain -> {
+                        "\"100\""
+                    }
+                    Chain.HECO == chain -> {
+                        "\"128\""
+                    }
+                    Chain.OPTIMISM == chain -> {
+                        "\"10\""
+                    }
+                    Chain.MOONRIVER == chain -> {
+                        "\"1285\""
+                    }
+                    Chain.AVALANCHE == chain -> {
+                        "\"43114\""
+                    }
+                    Chain.ARBITRUM == chain -> {
+                        "\"42161\""
+                    }
                     else -> throw RpcException(-32602, "Invalid chain")
                 }
             }
@@ -167,6 +191,30 @@ class DefaultEthereumMethods(
                     }
                     Chain.TESTNET_GOERLI == chain -> {
                         "\"0x5\""
+                    }
+                    Chain.RSK == chain -> {
+                        "\"0x1e\""
+                    }
+                    Chain.BSC == chain -> {
+                        "\"0x38\""
+                    }
+                    Chain.XDAI == chain -> {
+                        "\"0x64\""
+                    }
+                    Chain.HECO == chain -> {
+                        "\"0x80\""
+                    }
+                    Chain.OPTIMISM == chain -> {
+                        "\"0xa\""
+                    }
+                    Chain.MOONRIVER == chain -> {
+                        "\"0x505\""
+                    }
+                    Chain.AVALANCHE == chain -> {
+                        "\"0xa86a\""
+                    }
+                    Chain.ARBITRUM == chain -> {
+                        "\"0xa4b1\""
                     }
                     else -> throw RpcException(-32602, "Invalid chain")
                 }

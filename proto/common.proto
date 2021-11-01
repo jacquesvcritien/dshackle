@@ -20,6 +20,13 @@ enum ChainRef {
     // CHAIN_LIGHTNING = 1001;
     CHAIN_MATIC = 1002; // Matic PoS Ethereum sidechain based on Polygon
     CHAIN_RSK = 1003; // RSK sidechain, https://www.rsk.co/
+    CHAIN_XDAI = 1004; // XDAI, https://www.xdaichain.com/
+    CHAIN_HECO = 1005; // HECO, https://m.hecochain.com/
+    CHAIN_MOONRIVER = 1006; // Moonriver, https://moonbeam.network/networks/moonriver/
+    CHAIN_AVALANCHE = 1007; // Avalanche, https://www.avax.network/
+    CHAIN_ARBITRUM = 1008; // Arbitrum, https://offchainlabs.com/
+    CHAIN_BSC = 1009; // Arbitrum, https://offchainlabs.com/
+    CHAIN_OPTIMISM = 1010; // Arbitrum, https://offchainlabs.com/
 
     // Testnets start with 10_000
     CHAIN_MORDEN = 10001;

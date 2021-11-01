@@ -37,6 +37,8 @@ proxy:
       blockchain: goerli
     - id: rinkeby
       blockchain: rinkeby
+    - id: bsc
+      blockchain: bs
 
 cluster:
   defaults:

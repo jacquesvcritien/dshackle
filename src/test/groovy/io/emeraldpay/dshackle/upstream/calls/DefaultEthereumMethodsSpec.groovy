@@ -25,5 +25,13 @@ class DefaultEthereumMethodsSpec extends Specification {
         Chain.TESTNET_GOERLI   | '"0x5"'
         Chain.TESTNET_RINKEBY  | '"0x4"'
         Chain.TESTNET_ROPSTEN  | '"0x3"'
+        Chain.BSC  | '"0x38"'
+        Chain.OPTIMISM  | '"0xa"'
+        Chain.MOONRIVER  | '"0x505"'
+        Chain.AVALANCHE  | '"0xa86a"'
+        Chain.ARBITRUM  | '"0xa4b1"'
+        Chain.XDAI  | '"0x64"'
+        Chain.HECO  | '"0x80"'
+        Chain.RSK  | '"0x1e"'
     }
 }
