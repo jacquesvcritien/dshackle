@@ -22,12 +22,13 @@ import com.fasterxml.jackson.databind.JsonNode
 import io.emeraldpay.dshackle.Global
 
 data class JsonRpcRequest(
+    val jsonrpc: String,
     val method: String,
     val params: List<Any?>,
     val id: Int
 ) {
 
-    constructor(method: String, params: List<Any?>) : this(method, params, 1)
+    constructor(method: String, params: List<Any?>) : this("2.0", method, params, 1)
 
     fun toJson(): ByteArray {
         val json = mapOf(
@@ -62,7 +63,7 @@ data class JsonRpcRequest(
                     throw IllegalStateException("Unsupported param type: ${it.asToken()}")
                 }
             }
-            return JsonRpcRequest(method, params, id)
+            return JsonRpcRequest("2.0", method, params, id)
         }
     }
 }
