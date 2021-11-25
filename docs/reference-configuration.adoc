@@ -31,6 +31,14 @@ monitoring:
     port: 8081
     path: /metrics
 
+health:
+  port: 8082
+  host: 127.0.0.1
+  path: /health
+  blockchains:
+   - chain: ethereum
+     min-availability: 1
+
 cache:
   redis:
     enabled: true
@@ -42,6 +50,7 @@ cache:
 proxy:
   host: 0.0.0.0
   port: 8080
+  websocket: true
   tls:
     enabled: true
     server:
@@ -164,6 +173,10 @@ See <<tls>> section
 | Setup Prometheus monitoring.
 See <<monitoring>> section
 
+| `health`
+|
+| Setup Health Check endpoint See <<health>> section
+
 | `proxy`
 |
 | Setup HTTP proxy that emulates all standard JSON RPC requests.
@@ -285,6 +298,52 @@ _Reserved for future use_, in case of multiple different types of endpoints.
 
 |===
 
+[#health]
+== Health Check endpoint
+
+[source,yaml]
+----
+health:
+  port: 8082
+  host: 127.0.0.1
+  path: /health
+  blockchains:
+    - chain: ethereum
+      min-available: 2
+    - chain: bitcoin
+      min-available: 1
+----
+
+[cols="2a,2a,5"]
+|===
+| Option | Default Value | Description
+
+| `port`
+| `8082`
+| HTTP port to bind the server
+
+| `host`
+| `127.0.0.1`
+| HTTP host to bind the server
+
+| `path`
+| `/health`
+| HTTP path to respond on requests
+
+| `blockchains`
+|
+| List of blockchains that must be available to consider the server _healthy_
+
+| `[blockchain].chain`
+|
+| Blockchain id
+
+| `[blockchain].min-available`
+| 1
+| How many _available_ upstreams for the blockchain is required to pass
+
+|===
+
 [#proxy]
 == Proxy config
 
@@ -315,20 +374,26 @@ proxy:
 
 | `host`
 | `127.0.0.0`
-| Host to bind gRPC server
+| Host to bind HTTP server
 
 | `port`
-| `2449`
-| Port to bind gRPC server
+| `8080`
+| Port to bind HTT server
 
+| `websocket`
+| `true`
+| Enable WebSocket Proxy
 
 | `tls`
 |
-| Setup TLS configuration for the Proxy server. See <<tls>> section
+| Setup TLS configuration for the Proxy server.
+See <<tls>> section
 
 | `routes`
 |
-a| Routing paths for Proxy.The proxy will handle requests as `https://${HOST}:${PORT}/${ROUTE_ID}` (or `http://` if TLS is not enabled)
+a| Routing paths for Proxy.
+The proxy will handle requests as `https://${HOST}:${PORT}/${ROUTE_ID}` (or `http://` if TLS is not enabled).
+For WebSocket it's `wss` / `ws`, accordingly.
 |===
 
 .Route config
@@ -605,14 +670,14 @@ rpc:
 ----
 
 | `ws.url`
-| Websocket URL to connect to.
+| WebSocket URL to connect to.
 Optional, but optimizes performance if it's available.
 
 | `ws.origin`
-| HTTP `Origin` if required by Websocket remote server.
+| HTTP `Origin` if required by WebSocket remote server.
 
 | `ws.basic-auth` + ...
-| Websocket Basic Auth configuration, if required by the remote server
+| WebSocket Basic Auth configuration, if required by the remote server
 
 | `ws.frameSize`
 | WebSocket frame size limit.

@@ -17,7 +17,6 @@ package io.emeraldpay.dshackle.upstream.bitcoin
 
 import io.emeraldpay.dshackle.cache.Caches
 import io.emeraldpay.dshackle.config.UpstreamsConfig
-import io.emeraldpay.dshackle.reader.EmptyReader
 import io.emeraldpay.dshackle.reader.Reader
 import io.emeraldpay.dshackle.upstream.EmptyHead
 import io.emeraldpay.dshackle.upstream.Head
@@ -26,6 +25,7 @@ import io.emeraldpay.dshackle.upstream.Multistream
 import io.emeraldpay.dshackle.upstream.RequestPostprocessor
 import io.emeraldpay.dshackle.upstream.Selector
 import io.emeraldpay.dshackle.upstream.Upstream
+import io.emeraldpay.dshackle.upstream.ethereum.LocalCallRouter
 import io.emeraldpay.dshackle.upstream.rpcclient.JsonRpcRequest
 import io.emeraldpay.dshackle.upstream.rpcclient.JsonRpcResponse
 import io.emeraldpay.grpc.Chain
@@ -72,13 +72,18 @@ open class BitcoinMultistream(
         val head = if (upstreams.size == 1) {
             val upstream = upstreams.first()
             upstream.setLag(0)
-            upstream.getHead()
+            upstream.getHead().apply {
+                if (this is Lifecycle) {
+                    this.start()
+                }
+            }
         } else {
             val newHead = MergedHead(upstreams.map { it.getHead() }).apply {
                 this.start()
             }
             val lagObserver = BitcoinHeadLagObserver(newHead, upstreams)
             this.lagObserver = lagObserver
+            lagObserver.start()
             newHead
         }
         onHeadUpdated(head)
@@ -86,8 +91,7 @@ open class BitcoinMultistream(
     }
 
     override fun getRoutedApi(matcher: Selector.Matcher): Mono<Reader<JsonRpcRequest, JsonRpcResponse>> {
-        // TODO
-        return Mono.just(EmptyReader())
+        return Mono.just(LocalCallRouter(getMethods()))
     }
 
     open fun getReader(): BitcoinReader {

@@ -17,6 +17,7 @@
 package io.emeraldpay.dshackle.startup
 
 import io.emeraldpay.dshackle.FileResolver
+import io.emeraldpay.dshackle.Global
 import io.emeraldpay.dshackle.cache.CachesFactory
 import io.emeraldpay.dshackle.config.UpstreamsConfig
 import io.emeraldpay.dshackle.reader.Reader
@@ -97,8 +98,8 @@ open class ConfiguredUpstreams(
                 val options = up.options ?: UpstreamsConfig.Options()
                 buildGrpcUpstream(up.cast(UpstreamsConfig.GrpcConnection::class.java), options)
             } else {
-                val chain = chainNames[up.chain]
-                if (chain == null) {
+                val chain = Global.chainById(up.chain)
+                if (chain == Chain.UNSPECIFIED) {
                     log.error("Chain is unknown: ${up.chain}")
                     return@forEach
                 }
@@ -124,7 +125,7 @@ open class ConfiguredUpstreams(
         val defaultOptions = HashMap<Chain, UpstreamsConfig.Options>()
         config.defaultOptions.forEach { defaultsConfig ->
             defaultsConfig.chains?.forEach { chainName ->
-                chainNames[chainName]?.let { chain ->
+                Global.chainById(chainName).let { chain ->
                     defaultsConfig.options?.let { options ->
                         if (!defaultOptions.containsKey(chain)) {
                             defaultOptions[chain] = options
@@ -151,6 +152,9 @@ open class ConfiguredUpstreams(
                 config.methods!!.enabled.forEach { m ->
                     if (m.quorum != null) {
                         it.setQuorum(m.name, m.quorum)
+                    }
+                    if (m.static != null) {
+                        it.setStaticResponse(m.name, m.static)
                     }
                 }
             }
@@ -284,7 +288,7 @@ open class ConfiguredUpstreams(
                 // "unknown" is not supposed to happen
                 Tag.of("upstream", config.id ?: "unknown"),
                 // UNSPECIFIED shouldn't happen too
-                Tag.of("chain", (chainNames[config.chain ?: ""] ?: Chain.UNSPECIFIED).chainCode)
+                Tag.of("chain", (Global.chainById(config.chain).chainCode))
             )
             val metrics = RpcMetrics(
                 Timer.builder("upstream.rpc.conn")
