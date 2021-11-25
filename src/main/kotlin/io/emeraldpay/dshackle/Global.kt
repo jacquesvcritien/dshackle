@@ -40,12 +40,22 @@ class Global {
 
         var metricsExtended = false
 
-        val chainNames = mapOf(
+    private val chainNames = mapOf(
             "ethereum" to Chain.ETHEREUM,
             "ethereum-classic" to Chain.ETHEREUM_CLASSIC,
             "eth" to Chain.ETHEREUM,
             "polygon" to Chain.MATIC,
             "matic" to Chain.MATIC,
+            "rsk" to Chain.RSK,
+            "xdai" to Chain.XDAI,
+            "bsc" to Chain.BSC,
+            "heco" to Chain.HECO,
+            "arb" to Chain.ARBITRUM,
+            "arbitrum" to Chain.ARBITRUM,
+            "ava" to Chain.AVALANCHE,
+            "avalanche" to Chain.AVALANCHE,
+            "optimism" to Chain.OPTIMISM,
+            "moonriver" to Chain.MOONRIVER,
             "etc" to Chain.ETHEREUM_CLASSIC,
             "morden" to Chain.TESTNET_MORDEN,
             "kovan" to Chain.TESTNET_KOVAN,

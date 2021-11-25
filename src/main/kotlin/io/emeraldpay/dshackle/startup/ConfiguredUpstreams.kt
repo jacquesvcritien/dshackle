@@ -58,36 +58,6 @@ open class ConfiguredUpstreams(
     private val log = LoggerFactory.getLogger(ConfiguredUpstreams::class.java)
     private var seq = AtomicInteger(0)
 
-    private val chainNames = mapOf(
-        "ethereum" to Chain.ETHEREUM,
-        "ethereum-classic" to Chain.ETHEREUM_CLASSIC,
-        "eth" to Chain.ETHEREUM,
-        "polygon" to Chain.MATIC,
-        "matic" to Chain.MATIC,
-        "rsk" to Chain.RSK,
-        "xdai" to Chain.XDAI,
-        "bsc" to Chain.BSC,
-        "heco" to Chain.HECO,
-        "arb" to Chain.ARBITRUM,
-        "arbitrum" to Chain.ARBITRUM,
-        "ava" to Chain.AVALANCHE,
-        "avalanche" to Chain.AVALANCHE,
-        "optimism" to Chain.OPTIMISM,
-        "moonriver" to Chain.MOONRIVER,
-        "etc" to Chain.ETHEREUM_CLASSIC,
-        "morden" to Chain.TESTNET_MORDEN,
-        "kovan" to Chain.TESTNET_KOVAN,
-        "kovan-testnet" to Chain.TESTNET_KOVAN,
-        "goerli" to Chain.TESTNET_GOERLI,
-        "goerli-testnet" to Chain.TESTNET_GOERLI,
-        "rinkeby" to Chain.TESTNET_RINKEBY,
-        "rinkeby-testnet" to Chain.TESTNET_RINKEBY,
-        "ropsten" to Chain.TESTNET_ROPSTEN,
-        "ropsten-testnet" to Chain.TESTNET_ROPSTEN,
-        "bitcoin" to Chain.BITCOIN,
-        "bitcoin-testnet" to Chain.TESTNET_BITCOIN
-    )
-
     @PostConstruct
     fun start() {
         log.debug("Starting upstreams")
