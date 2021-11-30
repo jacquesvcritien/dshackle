@@ -88,13 +88,15 @@ abstract class DefaultUpstream(
     }
 
     fun statusByLag(lag: Long, proposed: UpstreamAvailability): UpstreamAvailability {
+        val new_proposed = if (id.startsWith("ava")) UpstreamAvailability.OK else proposed
+
         return if (proposed == UpstreamAvailability.OK) {
             when {
                 lag > 6 -> UpstreamAvailability.SYNCING
                 lag > 1 -> UpstreamAvailability.LAGGING
-                else -> proposed
+                else -> new_proposed
             }
-        } else proposed
+        } else new_proposed
     }
 
     override fun observeStatus(): Flux<UpstreamAvailability> {
